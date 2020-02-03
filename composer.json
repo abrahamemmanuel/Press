@@ -1,0 +1,15 @@
+{
+    "name": "emmy/press",
+    "description": "An elegant markdown-powered blog for the laravel framework",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Abraham Emmanuel",
+            "email": "info@zetamindgroup.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "orchestra/testbench": "^4.6"
+    }
+}
