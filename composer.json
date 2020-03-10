@@ -1,15 +1,27 @@
 {
-    "name": "emmy/press",
-    "description": "An elegant markdown-powered blog for the laravel framework",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Abraham Emmanuel",
-            "email": "info@zetamindgroup.com"
-        }
-    ],
-    "require": {},
-    "require-dev": {
-        "orchestra/testbench": "^4.6"
+  "name": "emmy/press",
+  "description": "An elegant markdown-powered blog for the laravel framework",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Abraham Emmanuel",
+      "email": "info@zetamindgroup.com"
     }
+  ],
+  "require": {
+    "erusev/parsedown": "^1.7"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^4.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "emmy\\Press\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "emmy\\Press\\Tests\\": "test/"
+    }
+  }
 }
