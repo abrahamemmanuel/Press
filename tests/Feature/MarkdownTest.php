@@ -1,7 +1,6 @@
 <?php
 namespace emmy\Press\Tests;
 
-use Orchestra\Testbench\TestCase;
 use Parsedown;
 use emmy\Press\MarkdownParser;
 

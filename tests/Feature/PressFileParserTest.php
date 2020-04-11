@@ -1,9 +1,8 @@
 <?php
 namespace emmy\Press\Tests;
 
-use emmy\Press\PressFileParser;
-use Orchestra\Testbench\TestCase;
 use Carbon\Carbon;
+use emmy\Press\PressFileParser;
 
 class PressFileParserTest extends TestCase
 {
@@ -12,7 +11,7 @@ class PressFileParserTest extends TestCase
     {
         $pressFileParser = (new PressFileParser(__DIR__ . '/../blogs/MarkFile1.md'));
 
-        $data = $pressFileParser->getData();
+        $data = $pressFileParser->getRawData();
 
         $this->assertStringContainsString('title: My Title', $data[1]);
         $this->assertStringContainsString('description: Description here', $data[1]);
@@ -20,11 +19,11 @@ class PressFileParserTest extends TestCase
     }
 
     /** @test */
-    public function a_string_can_also_be_use_instead()
+    public function a_string_can_also_be_used_instead()
     {
         $pressFileParser = (new PressFileParser("---\ntitle: My Title\n---\nBlog post body here"));
 
-        $data = $pressFileParser->getData();
+        $data = $pressFileParser->getRawData();
 
         $this->assertStringContainsString('title: My Title', $data[1]);
         $this->assertStringContainsString('Blog post body here', $data[2]);
@@ -58,7 +57,7 @@ class PressFileParserTest extends TestCase
     }
 
     /** @test */
-    public function a_date_filed_gets_parsed()
+    public function a_date_field_gets_parsed()
     {
         $pressFileParser = (new PressFileParser("---\ndate: May 14, 1998\n---\n"));
 
@@ -66,5 +65,28 @@ class PressFileParserTest extends TestCase
 
         $this->assertInstanceOf(Carbon::class, $data['date']);
         $this->assertEquals('05/14/1998', $data['date']->format('m/d/Y'));
+    }
+
+    /** @test */
+    public function an_extra_field_gets_saved()
+    {
+        $pressFileParser = (new PressFileParser("---\nauthor: John Doe\n---\n"));
+
+        $data = $pressFileParser->getData();
+
+        $this->assertEquals(json_encode(['author' => 'John Doe']), $data['extra']);
+
+    }
+
+    /** @test */
+
+    public function two_additional_fields_are_put_into_extra()
+    {
+        $pressFileParser = (new PressFileParser("---\nauthor: John Doe\nimage: some/image.jpg\n---\n"));
+
+        $data = $pressFileParser->getData();
+
+        $this->assertEquals(json_encode(['author' => 'John Doe', 'image' => 'some/image.jpg']), $data['extra']);
+
     }
 }
