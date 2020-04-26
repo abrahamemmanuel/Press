@@ -1,14 +1,17 @@
 <?php
 
 namespace emmy\Press\Tests;
+use emmy\Press\PressBaseServiceProvider;
+
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
-
-    protected function setUp()
+    
+    protected function setUp(): void
     {
-        parent::setUp();
-        $thi->withFactories(__DIR__ . '/../database/factories');
+      parent::setUp();
+
+      $this->withFactories(__DIR__.'/../database/factories');
     }
 
     /**

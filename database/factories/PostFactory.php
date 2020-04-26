@@ -1,11 +1,12 @@
 <?php
 
 use emmy\Press\Post;
+use   Illuminate\Support\Str;
 
 $factory->define(Post::class, function(Faker\Generator $faker){
   return [
-    'identifier' => str_random(),
-    'slug' => str_slug($faker->sentence),
+    'identifier' => Str::random(),
+    'slug' => Str::slug($faker->sentence),
     'title' => $faker->sentence,
     'body' => $faker->paragraph,
     'extra' => json_encode(['test' => 'value']),
