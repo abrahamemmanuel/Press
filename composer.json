@@ -21,7 +21,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "emmy\\Press\\Tests\\": "test/"
+      "emmy\\Press\\Tests\\": "tests/"
     }
   }
 }
