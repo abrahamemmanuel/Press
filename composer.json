@@ -5,7 +5,7 @@
   "authors": [
     {
       "name": "Abraham Emmanuel",
-      "email": "emmanuel.abraham@zetamindgroup.com"
+      "email": ""
     }
   ],
   "require": {
@@ -22,6 +22,13 @@
   "autoload-dev": {
     "psr-4": {
       "emmy\\Press\\Tests\\": "tests/"
+    }
+  },
+  "extra":{
+    "laravel":{
+      "providers": [
+        "emmy\\Press\\PressBaseServiceProvider"
+      ]
     }
   }
 }
