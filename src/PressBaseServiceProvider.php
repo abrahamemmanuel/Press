@@ -2,9 +2,9 @@
 
 namespace emmy\Press;
 
+use emmy\Press\Facades\Press;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use emmy\Press\Facades\Press;
 
 class PressBaseServiceProvider extends ServiceProvider
 {
@@ -30,6 +30,7 @@ class PressBaseServiceProvider extends ServiceProvider
 
         $this->registerFacades();
         $this->registerRoutes();
+        $this->registerFields();
     }
 
     protected function registerRoutes()
@@ -44,6 +45,11 @@ class PressBaseServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../config/press.php' => config_path('press.php'),
         ], 'press-config');
+
+        $this->publishes([
+            __DIR__ . '/Console/stubs/PressServiceProvider.stub' => app_path('Providers/PressServiceProvider.php'),
+        ], 'press-provider');
+
     }
 
     private function routeConfiguration()
@@ -56,8 +62,19 @@ class PressBaseServiceProvider extends ServiceProvider
 
     protected function registerFacades()
     {
-        $this->app->singleton('Press', function($app){
+        $this->app->singleton('Press', function ($app) {
             return new \emmy\Press\Press();
         });
+    }
+
+    private function registerFields()
+    {
+        Press::fields([
+            Fields\Body::class,
+            Fields\Date::class,
+            Fields\Description::class,
+            Fields\Extra::class,
+            Fields\Title::class,
+        ]);
     }
 }

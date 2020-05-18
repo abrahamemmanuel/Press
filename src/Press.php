@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 
 class Press
 {
+    protected $fields = [];
     public function configNotPublished()
     {
         return is_null(config('press'));
@@ -21,6 +22,16 @@ class Press
 
     public function path()
     {
-      return config('press.path', 'blogs');
+        return config('press.path', 'blogs');
+    }
+
+    public function fields(array $fields)
+    {
+        $this->fields = array_merge($this->fields, $fields);
+    }
+
+    public function availableFields()
+    {
+        return array_reverse($this->fields);
     }
 }

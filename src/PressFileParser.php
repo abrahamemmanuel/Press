@@ -2,6 +2,7 @@
 namespace emmy\Press;
 
 use Illuminate\Support\Facades\File;
+use ReflectionClass;
 use Illuminate\Support\Str;
 
 class PressFileParser
@@ -64,13 +65,24 @@ class PressFileParser
     {
         foreach ($this->data as $field => $value) {
 
-            $class = ('emmy\\Press\\Fields\\' . Str::title($field));
+            $class = $this->getField(Str::title($field));
 
             // check if class and method exist
             if (!class_exists($class) && !method_exists($class, "process")) {
-              $class = 'emmy\\Press\\Fields\\Extra';
+                $class = 'emmy\\Press\\Fields\\Extra';
             }
             $this->data = array_merge($this->data, $class::process($field, $value, $this->data));
+        }
+    }
+
+    private function getField($field)
+    {
+        foreach (\emmy\Press\Facades\Press::availableFields() as $availableField) {
+            $class = new ReflectionClass($availableField);
+
+            if($class->getShortName() == $field){
+                return $class->getName();
+            }
         }
     }
 }
